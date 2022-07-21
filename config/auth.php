@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'auth0',
         'passwords' => 'users',
     ],
 
@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'auth0' => [
+            'driver' => 'auth0',
+            'provider' => 'auth0',
+        ],
     ],
 
     /*
@@ -55,7 +60,7 @@ return [
     | sources which represent each model / table. These sources may then
     | be assigned to any extra authentication guards you have defined.
     |
-    | Supported: "database", "eloquent"
+    | Supported: "database", "eloquent", "auth0"
     |
     */
 
@@ -69,6 +74,11 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+
+        'auth0' => [
+            'driver' => 'auth0',
+            'repository' => \Auth0\Laravel\Auth\User\Repository::class
+        ],
     ],
 
     /*
