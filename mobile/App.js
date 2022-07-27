@@ -16,6 +16,7 @@ import {
   Text,
   useColorScheme,
   View,
+  Button,
 } from 'react-native';
 
 import {
@@ -25,6 +26,9 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+
+import Auth0 from 'react-native-auth0';
+const auth0 = new Auth0({ domain: 'dev-gh8g8v6y.us.auth0.com', clientId: 'qbwsGZjTXBrcO1bPXAgEqugY44Bt4rMN' });
 
 const Section = ({children, title}): Node => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -59,6 +63,16 @@ const App: () => Node = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const login = async () => {
+    try {
+      const credentials = await auth0.webAuth.authorize({scope: 'openid profile email'});
+
+      console.log(credentials);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
@@ -70,6 +84,7 @@ const App: () => Node = () => {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
+          <Button title='Login' onPress={login} />
           <Section title="Step One">
             Edit <Text style={styles.highlight}>App.js</Text> to change this
             screen and then come back to see your edits.
