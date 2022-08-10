@@ -76,6 +76,17 @@ const App: () => Node = () => {
     }
   };
 
+  const logout = () => {
+    auth0.webAuth
+      .clearSession({})
+      .then(success => {
+        console.log('Logged out!');
+      })
+      .catch(error => {
+        console.log('Log out cancelled');
+      });
+  };
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
@@ -88,6 +99,7 @@ const App: () => Node = () => {
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
           <Button title='Login' onPress={login} />
+          <Button title='Logout' onPress={logout} />
           <Section title="Step One">
             Edit <Text style={styles.highlight}>App.js</Text> to change this
             screen and then come back to see your edits.
