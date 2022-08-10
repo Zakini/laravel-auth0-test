@@ -65,7 +65,10 @@ const App: () => Node = () => {
 
   const login = async () => {
     try {
-      const credentials = await auth0.webAuth.authorize({scope: 'openid profile email'});
+      const credentials = await auth0.webAuth.authorize({
+        audience: 'http://laravel-auth0.test',
+        scope: 'openid profile email'
+      });
 
       console.log(credentials);
     } catch (e) {
